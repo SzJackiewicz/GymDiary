@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+
+  .oneMore {
+    max-width: 50px;
+    margin: 0 auto;
+    border-style: none;
+    border-radius: 5px;
+  }
+}
