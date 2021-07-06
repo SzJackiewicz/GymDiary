@@ -4,5 +4,10 @@ form {
   input {
     border-style: none;
     border-radius: 3px;
+    min-height: 25px;
+  }
+  button{
+    min-height: 25px;
+    margin-left:10px;
   }
 }
