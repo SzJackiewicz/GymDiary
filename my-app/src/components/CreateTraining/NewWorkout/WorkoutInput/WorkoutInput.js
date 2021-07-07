@@ -1,16 +1,14 @@
-import React from "react"
+import React, {useState} from "react";
+import SingleExcercise from '../SingleExcercise/SingleExcercise'
 import style from "./WorkoutInput.module.scss"
 
-const WorkoutInput = () => {
-
-  //funkcja dodająca kolejne ćwiczenie czyli cały komponent Single Excercise
-
+const WorkoutInput = ({addExcercise}) => {
 
 
   return (
     <form>
       <input type="text" placeholder="excercise"/>
-      <button type="submit">ADD</button>
+      <button onClick = {addExcercise}>ADD</button>
     </form>
   )
 };

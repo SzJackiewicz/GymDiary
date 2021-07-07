@@ -1,13 +1,18 @@
 import Dashboard from "./components/Dashboard/Dashboard";
 import DayTemplate from "./components/CreateTraining/DayTemplate/DayTemplate";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
+import {homeURL, testURL } from "./AppRoutes";
 
 function App() {
   return (
-          <>
-          {/* <Dashboard /> */}
+          <BrowserRouter>
+          <Switch>
+          <Route exact path={homeURL} >
+          <Dashboard />
+          </Route>
           <DayTemplate/>
-          </>
+          </Switch>
+          </BrowserRouter>
   );
 }
 
