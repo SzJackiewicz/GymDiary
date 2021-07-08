@@ -1,6 +1,6 @@
 .wrapper {
   min-height: 90%;
-  max-width: 270px;
+  max-width: 290px;
   background-color: tomato;
   margin: 30px auto;
   background: rgba(123, 119, 119, 0.45);
@@ -8,5 +8,10 @@
   -webkit-backdrop-filter: blur(10.5px);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
-  
+}
+
+.tiles{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }

@@ -9,9 +9,9 @@ import {testURL} from "../../AppRoutes";
 const CreateTraining = () => {
 
   return (
-
+      <div className={styles.btn}>
       <Link to={testURL} className={styles.newTraining}><CgMenuBoxed/>new training</Link>
-    
+      </div>
   )
 };
 

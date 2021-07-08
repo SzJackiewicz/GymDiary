@@ -3,7 +3,7 @@ import OneLine from "./OneLine";
 import { SiAddthis } from "react-icons/si";
 import styles from "./SingleExcercise.module.scss"
 
-const SingleExcercise = () => {
+const SingleExcercise = ({excerciseArr}) => {
 
     const [series, setSeries] = useState([])
   //funkcja dodająca kolejną linijkę teg samego cwiczenia czyli tworząca OneLine
@@ -12,10 +12,10 @@ const SingleExcercise = () => {
     setSeries([...series, <OneLine/>])
   }
 
-
-  return (
+ 
+ return (
     <div className={styles.wrapper}>
-      <p>NazwaĆwiczenia</p> 
+      <p>{excerciseArr}</p>
       <OneLine />
       {series.map(item =><OneLine/>)}
       <button onClick={addSeries} className={styles.oneMore}><SiAddthis className={styles.icon}/></button>
