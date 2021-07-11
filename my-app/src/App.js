@@ -13,41 +13,56 @@ function App() {
   //kolejne ćwiczenie = paragraf + OneLine
   const [excerciseName, setExcerciseName] = useState('');
   //nazwa z inputa
-  const [namesArray, setNamesArray]= useState([])
-  //tablica z nazwami zaciągniętymi z inputa, po kliknięciu add
-  const [counter, setCounter] = useState(0)  ;
+  const [dayWorkout, setDayWorkout] = useState([]);
+  const [lineInput, setLineInput] = useState([])
 
-
-  //wartość inputa
-  const handleChange = (e) => {
+    const handleChange = (e) => {
     setExcerciseName(e.target.value)
+  }
+
+  const deleteName = () =>{
+    setExcercise(excercise.filter((el) => el.id !== el.id))
   }
     
   const addExcercise = (e) => {
+    if (excerciseName === ""){
+      e.preventDefault();
+      alert("Set excercise name!");
+    } else {
+      e.preventDefault();
+      let random = uuidv4()
+         setExcercise([...excercise,{
+        id:random,
+        text:excerciseName,
+        }]);
+      setExcerciseName("");
+    }
+  };
+
+ 
+  
+  const saveDay = (e) =>{
     e.preventDefault();
     let random = uuidv4()
-    setNamesArray([...namesArray, excerciseName])
-    setExcercise([...excercise,{
+    setDayWorkout([...dayWorkout,{
       id:random,
-      text:excerciseName
-    }]);
-    console.log(excercise);
-    setCounter(counter+1);
-    setExcerciseName("");
-  };
-  
-
+      name: dayWorkout.length,
+    }])
+  }
 
   const contextElements = {
     excercise,
     setExcercise,
     excerciseName,
     setExcerciseName,
-    namesArray,
-    setNamesArray,
     handleChange,
     addExcercise,
-    counter
+    dayWorkout,
+    setDayWorkout,
+    saveDay,
+    lineInput,
+    setLineInput,
+    deleteName
 
   }
   return (
@@ -58,7 +73,7 @@ function App() {
           <Route exact path={homeURL}>
             <Dashboard />
           </Route>
-          <DayTemplate />
+          <DayTemplate deleteName={deleteName}/>
         </Switch>
       </AppContext.Provider>
     </BrowserRouter>

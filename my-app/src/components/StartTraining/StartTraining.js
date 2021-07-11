@@ -4,12 +4,12 @@ import styles from '../StartTraining/StartTraining.module.scss'
 
 
 
-const StartTraining = () => {
+const StartTraining = ({name}) => {
 
   return (
 
       <button className={styles.startTraining}>
-          <CgGym/>Go day day-1</button>
+          <CgGym/>{`GO DAY ${name+1}`}</button>
     
   )
 };
