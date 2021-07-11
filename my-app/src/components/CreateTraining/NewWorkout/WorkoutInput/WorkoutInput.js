@@ -1,16 +1,26 @@
-import React, {useState} from "react";
-import SingleExcercise from '../SingleExcercise/SingleExcercise'
-import style from "./WorkoutInput.module.scss"
+import React from "react";
+import AppContext from '../../../../context'
+import styles from '../WorkoutInput/WorkoutInput.module.scss'
 
-const WorkoutInput = ({addExcercise, handleChange, excerciseName}) => {
 
-  
+const WorkoutInput = () => {
+
+
   return (
-    <form>
-      <input type="text" placeholder="excercise" value={excerciseName} name="name" onChange={handleChange}/>
-      <button onClick = {addExcercise}>ADD</button>
-    </form>
-  )
+    <AppContext.Consumer>
+      {(context) => (
+        <form>
+          <input
+            type="text"
+            placeholder="excercise"
+            value={context.excerciseName}
+            onChange={context.handleChange}
+          />
+          <button onClick={context.addExcercise}>ADD</button>
+        </form>
+      )}
+    </AppContext.Consumer>
+  );
 };
 
 export default WorkoutInput;

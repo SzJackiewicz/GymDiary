@@ -1,25 +1,39 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import OneLine from "./OneLine";
 import { SiAddthis } from "react-icons/si";
-import styles from "./SingleExcercise.module.scss"
+import styles from "./SingleExcercise.module.scss";
+import AppContext from "../../../../context";
+import { v4 as uuidv4 } from 'uuid';
 
-const SingleExcercise = ({excerciseArr}) => {
 
-    const [series, setSeries] = useState([])
-  //funkcja dodająca kolejną linijkę teg samego cwiczenia czyli tworząca OneLine
 
-  const addSeries = () => {
-    setSeries([...series, <OneLine/>])
+const SingleExcercise = ({text}) => {
+  const [newLine, setNewLine] = useState([])
+
+  const addLine = () =>{
+    let random = uuidv4()
+    setNewLine( [...newLine,{
+      id: random,
+    }])
+  }
+ 
+  const removeLine = (e) =>{
+    setNewLine(newLine.filter(el=> el.id !== el.id))
   }
 
- 
- return (
-    <div className={styles.wrapper}>
-      <p>{excerciseArr}</p>
-      <OneLine />
-      {series.map(item =><OneLine/>)}
-      <button onClick={addSeries} className={styles.oneMore}><SiAddthis className={styles.icon}/></button>
-    </div>
+  return (
+    <AppContext.Consumer>
+      {(context) => (
+        <div className={styles.wrapper}>
+          <p>{text}</p>
+          {/* {context.namesArray.map((item) => <p>{context.namesArray[context.counter]}</p>)} */}
+          {newLine.map(item=> <OneLine removeLine={removeLine} key={newLine.id}/>)}
+          <button onClick={addLine} className={styles.oneMore}>
+            <SiAddthis className={styles.icon} />
+          </button>
+                </div>
+      )}
+    </AppContext.Consumer>
   );
 };
 
