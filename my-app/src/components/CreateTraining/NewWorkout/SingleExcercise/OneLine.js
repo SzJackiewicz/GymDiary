@@ -4,7 +4,9 @@ import { CgTrash } from "react-icons/cg";
 import AppContext from '../../../../context';
 
 
-const OneLine = ({removeLine, repsValue, reps, name}) => {
+const OneLine = ({name, reps, weight}) => {
+
+  
   return (
     <AppContext.Consumer>
       {(context) => (
@@ -14,8 +16,8 @@ const OneLine = ({removeLine, repsValue, reps, name}) => {
             className={styles.input}
             type="number"
             placeholder="reps"
-            onChange={repsValue}
-            value={reps.name}
+            onChange={context.repsValue}
+            value={reps}
             name={name}
           />
           <input
@@ -24,9 +26,9 @@ const OneLine = ({removeLine, repsValue, reps, name}) => {
             type="number"
             placeholder="weight"
             onChange={context.weightValue}
-            value={context.weight}
+            value={weight}
           />
-          <button onClick={removeLine} className={styles.trash}>
+          <button onClick={context.removeLine} className={styles.trash}>
             <CgTrash className={styles.icon} />
           </button>
         </div>

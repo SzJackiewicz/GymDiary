@@ -16,7 +16,7 @@ const WorkoutInput = () => {
             value={context.excerciseName}
             onChange={context.handleChange}
           />
-          <button onClick={context.addExcercise}>ADD</button>
+          <button onClick={context.addExcercises}>ADD</button>
         </form>
       )}
     </AppContext.Consumer>

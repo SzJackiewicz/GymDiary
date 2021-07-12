@@ -17,7 +17,7 @@ const DayTemplate = ({deleteName}) => {
         <SaveBtn />
         </div>
         <WorkoutInput />
-        {context.excercise.map(ex => <SingleExcercise deleteName={deleteName} key={ex.id} text={ex.text}/>)}
+        {context.excercises.map(ex => <SingleExcercise deleteName={deleteName} key={ex.id} id={ex.id} text={ex.name} reps={ex.reps} addLine={context.addLine}/>)}
       </div>
       )}
     </AppContext.Consumer>
