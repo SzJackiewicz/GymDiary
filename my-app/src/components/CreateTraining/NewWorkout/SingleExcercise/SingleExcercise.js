@@ -3,22 +3,13 @@ import OneLine from "./OneLine";
 import ExcerciseName from '../SingleExcercise/ExcerciseName';
 import { SiAddthis } from "react-icons/si";
 import styles from "./SingleExcercise.module.scss";
-import AppContext from "../../../../context";
 
-const SingleExcercise = ({text, reps, id, addLine}) => {
- 
+const SingleExcercise = ({text, series, id, addSeries, removeSeries}) => {
    return (
         <div className={styles.wrapper}>
           <ExcerciseName id={id} text={text}/>
-            {reps.map(rep => ( <OneLine
-              // repsValue={repsValue}
-              // removeLine={removeLine}
-              key={id}
-              id={id}
-              weight={rep.weight}
-              reps={rep.reps}
-            />))}
-            <button onClick={addLine}  lassName={styles.oneMore}>
+          {series.map(el => <OneLine removeSeries={removeSeries} key={el.id} id={id} weight={el.weight} reps={el.reps}  /> )}
+            <button onClick={()=>addSeries(id)} className={styles.oneMore}>
             <SiAddthis className={styles.icon} />
           </button>
         </div>

@@ -3,86 +3,106 @@ import DayTemplate from "./components/CreateTraining/DayTemplate/DayTemplate";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { homeURL } from "./AppRoutes";
 import AppContext from "./context";
-import React, {useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
-
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import _ from "lodash";
+// import OneLine from "./components/CreateTraining/NewWorkout/SingleExcercise/OneLine";
 
 function App() {
-
-  const [excercises, setExcercises] = useState([{
-    id: uuidv4(), 
-    name:"nazwa",
-    //todo zmienić na serie z reps
-    //prio na dziś dodawanie całego obiektu
-
-    reps:[{
-      id:uuidv4(), 
-      name:"10",
-      reps:"11",
-      weight:"12"
-    }
-      ]
-  }]);
-
-
-  const [excerciseName, setExcerciseName] = useState('');
-  //nazwa z inputa
   const [dayWorkout, setDayWorkout] = useState([]);
   //tu ma być zapisywany cały dzień(?)
-  const [lineInput, setLineInput] = useState([])
-  const [newLine, setNewLine] = useState([]);
-  const [reps, setReps] = useState('');
+  const [excerciseName, setExcerciseName] = useState("");
+  //nazwa z inputa
+  // const [lines, setLines] = useState([])
+  const [excercises, setExcercises] = useState([]);
 
-  let randomId =  uuidv4();
-
-  const addLine = (excerciseId) => {
-    // setNewLine([...newLine, newLine]);
-    // setExcercises((prev) => {
-    // const excerciseToUpdate = prev.filter(el => el.id === excerciseId)  
-    // excerciseToUpdate.reps = [...excerciseToUpdate.reps, {
-    //   id: uuidv4(),
-    //   name: ''
-    // }] 
-    // return [...prev]
-    // })
-  };
-
-  const removeLine = () => {
-    setNewLine(newLine.filter((el) => el.id !== el.key));
-    deleteName()
-  };
-
-    const handleChange = (e) => {
-    setExcerciseName(e.target.value)
-  }
-
-  const deleteName = () =>{
-    setExcercises(excercises.filter((el) => el.id !== el.id))
-  }
-    
   const addExcercise = (e) => {
-    if (excerciseName === ""){
-      e.preventDefault();
-      alert("Set excercise name!");
+    e.preventDefault();
+
+    if (excerciseName !== "") {
+      const newExcercise = {
+        id: uuidv4(),
+        text: excerciseName,
+
+        series: [
+          {
+            id: uuidv4(),
+            name: "",
+            reps: "",
+            weight: "",
+          },
+        ],
+      };
+      setExcercises((prev) => [...prev, newExcercise] );
+
     } else {
-      e.preventDefault();
-      let random = uuidv4()
-         setExcercise([...excercise,{
-        id:random,
-        text:excerciseName,
-        }]);
-      setExcerciseName("");
+      alert("podaj nazwę ćwiczenia!");
     }
   };
- 
-  const saveDay = (e) =>{
-    e.preventDefault();
-    let random = uuidv4()
-    setDayWorkout([...dayWorkout,{
-      id:random,
-      name: dayWorkout.length,
-    }])
+
+
+  const addSeries = (id) => {
+    const excerciseToUpdate = excercises.find((el) => el.id === id);
+    const updatedExcercises = {
+      ...excerciseToUpdate,
+         series: [
+        ...excerciseToUpdate.series,
+        {
+          id: uuidv4(),
+          name: "",
+          reps: "",
+          weight: "",
+        }]
+    }
+    const serchedIndex = _.findIndex(excercises,(el) => el.id === id)
+
+    setExcercises((prev)=>{
+       prev.splice(serchedIndex,1,updatedExcercises)
+       return [...prev]
+    })
+    //indeks szukanego elementu excerciseToUpdate
+    //ile mam wymienić
+    //dodać nową wartość: updatedExcercises
   }
+  
+  const removeSeries = (id) => {
+    const excerciseToChange = excercises.find((el) => el.id === id);
+    //kliknięte ćwiczenie
+    const seriesArray = excerciseToChange.series;
+    //tablica serii
+    const seriesToRemoveID = seriesArray[0].id
+    //id pierwszego elementu z tablicy
+    
+  const seriesToRemoveIndex = _.findIndex(seriesArray,(el) => el.id === id)
+
+    console.log(excerciseToChange) // działa
+    console.log(seriesArray); //działa
+    console.log(seriesToRemoveID); //jak podam indeks "z ręki" znajduje
+    console.log(seriesToRemoveIndex); //zawsze wyskakuje -1
+    console.log(id)
+  
+  }
+   
+
+
+
+
+
+  const handleChange = (e) => {
+    setExcerciseName(e.target.value);
+  };
+
+  const saveDay = (e) => {
+    e.preventDefault();
+    let random = uuidv4();
+    setDayWorkout([
+      ...dayWorkout,
+      {
+        id: random,
+        name: dayWorkout.length,
+      },
+    ]);
+  };
 
   const contextElements = {
     excercises,
@@ -94,26 +114,18 @@ function App() {
     dayWorkout,
     setDayWorkout,
     saveDay,
-    lineInput,
-    setLineInput,
-    deleteName,
-    removeLine,
-    newLine,
-    reps,
-    setReps,
-    addLine,
-    randomId,
-  }
+    addSeries,
+    removeSeries
+  };
 
   return (
     <BrowserRouter>
-      <AppContext.Provider 
-      value={contextElements}>
+      <AppContext.Provider value={contextElements}>
         <Switch>
           <Route exact path={homeURL}>
             <Dashboard />
           </Route>
-          <DayTemplate/>
+          <DayTemplate excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} />
         </Switch>
       </AppContext.Provider>
     </BrowserRouter>

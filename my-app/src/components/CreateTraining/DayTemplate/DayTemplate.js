@@ -6,7 +6,7 @@ import HomeBtn from "../HomeBtn/HomeBtn";
 import SaveBtn from "../SaveBtn/SaveBtn";
 import AppContext from '../../../context';
 
-const DayTemplate = ({deleteName}) => {
+const DayTemplate = () => {
 
     return (
     <AppContext.Consumer>
@@ -17,7 +17,7 @@ const DayTemplate = ({deleteName}) => {
         <SaveBtn />
         </div>
         <WorkoutInput />
-        {context.excercises.map(ex => <SingleExcercise deleteName={deleteName} key={ex.id} id={ex.id} text={ex.name} reps={ex.reps} addLine={context.addLine}/>)}
+        {context.excercises.map(ex => <SingleExcercise removeSeries={context.removeSeries} addSeries={context.addSeries} series={ex.series} key={ex.id} id={ex.id} text={ex.text} reps={ex.reps}/>)}
       </div>
       )}
     </AppContext.Consumer>
