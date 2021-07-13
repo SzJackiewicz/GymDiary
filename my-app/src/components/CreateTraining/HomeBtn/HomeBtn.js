@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import {homeURL} from "../../../AppRoutes"
 
 const HomeBtn = () => {
-
   return (
-    <Link to={homeURL}>
+  <Link to={homeURL}>
    <button className={styles.homeBtn}>HOME</button>
    </Link>
   )

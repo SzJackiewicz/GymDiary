@@ -3,7 +3,7 @@ import styles from "./OneLine.module.scss";
 import { CgTrash } from "react-icons/cg";
 
 
-const OneLine = ({reps, weight, id, seriesID, removeSeries, repsChange, weightChange}) => {
+const OneLine = ({reps, weight, id, seriesID, removeSeries, excercises, repsChange, weightChange }) => {
   return (
         <div className={styles.wrapper}>
           <input
@@ -22,7 +22,7 @@ const OneLine = ({reps, weight, id, seriesID, removeSeries, repsChange, weightCh
             // onChange={weightChange}
             // value={weight}
           />
-          <button onClick={()=>removeSeries(id, seriesID)} className={styles.trash}>
+          <button onClick={()=>removeSeries(id, seriesID, excercises, )} className={styles.trash}>
             <CgTrash className={styles.icon} />
           </button>
         </div>

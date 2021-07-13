@@ -3,10 +3,9 @@ import DayTemplate from "./components/CreateTraining/DayTemplate/DayTemplate";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { homeURL } from "./AppRoutes";
 import AppContext from "./context";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
-// import OneLine from "./components/CreateTraining/NewWorkout/SingleExcercise/OneLine";
 
 function App() {
   const [weightState, setWeight] = useState('')
@@ -29,16 +28,20 @@ function App() {
             name: "",
             reps: "",
             weight: "",
+            line:"1"
           },
         ],
       };
       setExcercises((prev) => [...prev, newExcercise] );
+      setExcerciseName('')
 
     } else {
       alert("podaj nazwę ćwiczenia!");
     }
   };
-
+ 
+  // const dupa = _.findIndex(excercises, (el, series) => el.series === el.series.length > 0)
+  // console.log(dupa);
 
   const addSeries = (id) => {
     const excerciseToUpdate = excercises.find((el) => el.id === id);
@@ -61,27 +64,23 @@ function App() {
     })
   }
   
-  const removeSeries = (id, seriesID) => {
+  const removeSeries = (id, seriesID, excercises) => {
     const excerciseToChange = excercises.find((el) => el.id === id);
-    //kliknięte ćwiczenie
     const seriesArray = excerciseToChange.series;
     const seriesToRemoveIndex = _.findIndex(seriesArray,(el) => el.id === seriesID)
-    const seriesIndex = _.findIndex(excercises,(el) => el.id === id)
    
-    // const seriesToRemoveID = seriesArray[seriesToRemoveIndex].id
 
-    
-    setExcercises((prev)=>[
-      ...prev,
-      prev[seriesIndex]={...prev[seriesIndex], 
-        prev[seriesIndex].filter(el=> el.id !== seriesID)
-      
+    setExcercises(()=>{
+      seriesArray.splice(seriesToRemoveIndex,1)
+      const notEmptyExcercises = excercises.filter((el) => el.series === el.series.length > 0)
+      if(seriesArray.length > 0){
+        return [...excercises]
+      } else {
+        return [...notEmptyExcercises]
       }
-    
-    ]
+    }
     )
   }
-   
 
 const repsChange = (e) =>{
   setReps(e.target.value)
@@ -105,6 +104,27 @@ const repsChange = (e) =>{
         name: dayWorkout.length,
       },
     ]);
+  };
+
+  useEffect(()=>{
+    getLocalWorkout()
+  },[]);
+
+  useEffect(()=>{
+    saveLocalWorkout()
+  },[excercises])
+
+  const saveLocalWorkout = () =>{
+    localStorage.setItem('excercises', JSON.stringify(excercises));
+  };
+
+  const getLocalWorkout = () => {
+    if (localStorage.getItem('excercises') === null){
+      localStorage.setItem('excercises', JSON.stringify([]));
+    } else {
+      let workoutLocal = JSON.parse(localStorage.getItem('excercises'));
+      setExcercises(workoutLocal);
+    } 
   };
 
   const contextElements = {
@@ -133,7 +153,7 @@ const repsChange = (e) =>{
           <Route exact path={homeURL}>
             <Dashboard />
           </Route>
-          <DayTemplate excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} />
+          <DayTemplate saveDay={saveDay} excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} />
         </Switch>
       </AppContext.Provider>
     </BrowserRouter>
