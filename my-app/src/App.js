@@ -9,16 +9,15 @@ import _ from "lodash";
 // import OneLine from "./components/CreateTraining/NewWorkout/SingleExcercise/OneLine";
 
 function App() {
+  const [weightState, setWeight] = useState('')
+  const [repsState, setReps] = useState('')
   const [dayWorkout, setDayWorkout] = useState([]);
   //tu ma być zapisywany cały dzień(?)
   const [excerciseName, setExcerciseName] = useState("");
-  //nazwa z inputa
-  // const [lines, setLines] = useState([])
   const [excercises, setExcercises] = useState([]);
 
   const addExcercise = (e) => {
     e.preventDefault();
-
     if (excerciseName !== "") {
       const newExcercise = {
         id: uuidv4(),
@@ -60,33 +59,37 @@ function App() {
        prev.splice(serchedIndex,1,updatedExcercises)
        return [...prev]
     })
-    //indeks szukanego elementu excerciseToUpdate
-    //ile mam wymienić
-    //dodać nową wartość: updatedExcercises
   }
   
-  const removeSeries = (id) => {
+  const removeSeries = (id, seriesID) => {
     const excerciseToChange = excercises.find((el) => el.id === id);
     //kliknięte ćwiczenie
     const seriesArray = excerciseToChange.series;
-    //tablica serii
-    const seriesToRemoveID = seriesArray[0].id
-    //id pierwszego elementu z tablicy
-    
-  const seriesToRemoveIndex = _.findIndex(seriesArray,(el) => el.id === id)
+    const seriesToRemoveIndex = _.findIndex(seriesArray,(el) => el.id === seriesID)
+    const seriesIndex = _.findIndex(excercises,(el) => el.id === id)
+   
+    // const seriesToRemoveID = seriesArray[seriesToRemoveIndex].id
 
-    console.log(excerciseToChange) // działa
-    console.log(seriesArray); //działa
-    console.log(seriesToRemoveID); //jak podam indeks "z ręki" znajduje
-    console.log(seriesToRemoveIndex); //zawsze wyskakuje -1
-    console.log(id)
-  
+    
+    setExcercises((prev)=>[
+      ...prev,
+      prev[seriesIndex]={...prev[seriesIndex], 
+        prev[seriesIndex].filter(el=> el.id !== seriesID)
+      
+      }
+    
+    ]
+    )
   }
    
 
+const repsChange = (e) =>{
+  setReps(e.target.value)
+}
 
-
-
+  const weightChange = (e) =>{
+    setWeight(e.target.value)
+  }
 
   const handleChange = (e) => {
     setExcerciseName(e.target.value);
@@ -115,7 +118,12 @@ function App() {
     setDayWorkout,
     saveDay,
     addSeries,
-    removeSeries
+    removeSeries,
+    repsChange,
+    weightChange,
+    repsState,
+    weightState
+
   };
 
   return (
