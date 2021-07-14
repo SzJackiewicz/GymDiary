@@ -1,11 +1,14 @@
+<pre>
 # GymDiary
 Track Your progress on gym!
 
 
 ------------------------------------
 
-This is App, which helps to track Your progress on Gym. If You're looking for simple tool to do this - this is it!
-Define Your workout templates witch excercises, reps, weight, and forget to use scratchbook or some sheets to do it manualy on every training.
+This is App, which helps to track Your progress on Gym. 
+If You're looking for simple tool to do this - this is it!
+Define Your workout templates witch excercises, reps, weight, 
+and forget about using scratchbook or some sheets to do it manualy on every training.
 
 App is still in development state. What (in near future) You can expect? Lets see:
 - add new excercise manualy or select from list
@@ -57,3 +60,4 @@ INDEX JS
 ```
 nvm use 12.13
 ```
+</pre>
