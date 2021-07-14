@@ -13,7 +13,9 @@ const Dashboard = () => {
           <Header />
           <div className={styles.tiles}>
             <CreateTrainingBtn />
-            {context.dayWorkout.map(item => <StartTraining key={item.id} name={item.name}/>)}
+            {context.dayWorkout.map((item) => (
+              <StartTraining key={item.id} name={item.name} />
+            ))}
           </div>
         </section>
       )}

@@ -14,7 +14,7 @@ const DayTemplate = ({saveDay}) => {
       <div className={styles.wrapper}>
         <div className={styles.btnWrapper}>
         <HomeBtn />
-        <SaveBtn saveDay={saveDay}/>
+        <SaveBtn saveDay={context.saveDay}/>
         </div>
         <WorkoutInput />
         {context.excercises.map(ex => 

@@ -7,14 +7,16 @@ import React, { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 
+
 function App() {
   const [dayWorkout, setDayWorkout] = useState([]);
   const [excerciseName, setExcerciseName] = useState("");
   const [excercises, setExcercises] = useState([]);
-  const [oneLineInputs, setOneLineInputs] = useState({
+  const [oneLineInputs, setOneLineInputs] = useState([{
     weight:'',
     reps:''
-  })
+  }])
+  
 
   const addExcercise = (e) => {
     e.preventDefault();
@@ -25,9 +27,9 @@ function App() {
         series: [
           {
             id: uuidv4(),
-            name: "",
-            reps: "",
-            weight: "",
+            name: '',
+            reps: '',
+            weight: '',
             line:"1"
           },
         ],
@@ -39,27 +41,29 @@ function App() {
     }
   };
 
+  
   const addSeries = (id) => {
     const excerciseToUpdate = excercises.find((el) => el.id === id);
     const updatedExcercises = {
       ...excerciseToUpdate,
-         series: [
+      series: [
         ...excerciseToUpdate.series,
         {
           id: uuidv4(),
           name: "",
-          reps: "",
-          weight: "",
+          reps: oneLineInputs.reps,
+          weight: oneLineInputs.weight,
+          line:"1"
         }]
-    }
-    const serchedIndex = _.findIndex(excercises,(el) => el.id === id)
-
-    setExcercises((prev)=>{
-       prev.splice(serchedIndex,1,updatedExcercises)
-       return [...prev]
+      }
+      const serchedIndex = _.findIndex(excercises,(el) => el.id === id)
+      
+      setExcercises((prev)=>{
+        prev.splice(serchedIndex,1,updatedExcercises)
+        return [...prev]
     })
   }
-  
+   
   const removeSeries = (id, seriesID, excercises) => {
     const excerciseToChange = excercises.find((el) => el.id === id);
     const seriesArray = excerciseToChange.series;
@@ -67,14 +71,13 @@ function App() {
   
     setExcercises(()=>{
       seriesArray.splice(seriesToRemoveIndex,1)
-      const notEmptyExcercises = excercises.filter((el) => el.series === el.series.length > 0)
-      if(seriesArray.length > 0){
-        return [...excercises]
-      } else {
-        return [...notEmptyExcercises]
-      }
-    }
-    )
+      const notEmptyExcercises = excercises.filter((el) => el.series.length > 0)
+        if(seriesArray.length > 0){
+          return [...excercises]
+        } else {
+          return [...notEmptyExcercises]
+        }
+    })
   }
 
 const oneLineChange = (e) =>{
@@ -90,11 +93,11 @@ const handleChange = (e) => {
 
   const saveDay = (e) => {
     e.preventDefault();
-    let random = uuidv4();
+    console.log("dupa")
     setDayWorkout([
       ...dayWorkout,
       {
-        id: random,
+        id: uuidv4(),
         name: dayWorkout.length,
       },
     ]);
@@ -102,12 +105,17 @@ const handleChange = (e) => {
 
   useEffect(()=>{
     getLocalWorkout()
+    getInputsValues()
   },[]);
 
   useEffect(()=>{
     saveLocalWorkout()
+    saveInputsValues()
+
   },[excercises])
 
+
+  //Local Storage Functions
   const saveLocalWorkout = () =>{
     localStorage.setItem('excercises', JSON.stringify(excercises));
   };
@@ -120,6 +128,22 @@ const handleChange = (e) => {
       setExcercises(workoutLocal);
     } 
   };
+
+const saveInputsValues = () =>{
+  localStorage.setItem('oneLineInputs', JSON.stringify(oneLineInputs));
+}
+
+const getInputsValues = () =>{
+  if (localStorage.getItem('oneLineInputs') === null){
+    localStorage.setItem('oneLineInputs', JSON.stringify([]));
+  } else {
+    let inputsLocal = JSON.parse(localStorage.getItem('oneLineInputs'));
+    setOneLineInputs(inputsLocal);
+  } 
+}
+
+
+
 
   const contextElements = {
     excercises,
@@ -144,11 +168,12 @@ const handleChange = (e) => {
           <Route exact path={homeURL}>
             <Dashboard />
           </Route>
-          <DayTemplate oneLineInputs={oneLineInputs} saveDay={saveDay} excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} />
+          <DayTemplate />
         </Switch>
       </AppContext.Provider>
     </BrowserRouter>
   );
 }
 
+// oneLineInputs={oneLineInputs} saveDay={saveDay} excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} 
 export default App;

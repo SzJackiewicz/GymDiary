@@ -14,6 +14,7 @@ const OneLine = ({oneLineChange, oneLineInputs, id, seriesID, removeSeries, exce
        onChange={oneLineChange}
        value={oneLineInputs.reps}
        name="reps"
+       min="1"
      />
      <input
        id={id}
@@ -23,6 +24,7 @@ const OneLine = ({oneLineChange, oneLineInputs, id, seriesID, removeSeries, exce
        onChange={oneLineChange}
        value={oneLineInputs.weight}
        name="weight"
+       min="1"
      />
      <button onClick={()=>removeSeries(id, seriesID, excercises, )} className={styles.trash}>
        <CgTrash className={styles.icon} />

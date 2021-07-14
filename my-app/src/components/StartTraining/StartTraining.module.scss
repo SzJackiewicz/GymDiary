@@ -1,10 +1,40 @@
-.startTraining {
+.btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100px;
   height: 100px;
   border-style: none;
+  background: rgba(40, 61, 81, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border-radius: 10px;
-  background: rgba( 135, 146, 146, 0.70 );
-backdrop-filter: blur( 15.0px );
--webkit-backdrop-filter: blur( 15.0px );
-border-radius: 10px;
+  border-radius: 10px;
+  text-align: center;
+
+  background: rgba(211, 9, 9, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  a {
+    text-decoration: none;
+    color: white;
+    font-size: 16px;
+    text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.68);
+  }
+}
+
+.ico_wrapper {
+  height: 50px;
+  width: 50px;
+}
+
+.ico {
+  height: 50px;
+  width: 50px;
+  color: white;
+  text-shadow: 0px 0px 7px rgba(255, 255, 255, 0.68);
 }

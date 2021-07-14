@@ -10,7 +10,10 @@ const CreateTraining = () => {
 
   return (
       <div className={styles.btn}>
-      <Link to={testURL} className={styles.newTraining}><CgMenuBoxed/>new training</Link>
+      <Link to={testURL} className={styles.newTraining}>NEW TRAINING</Link>
+      <div className={styles.ico_wrapper}>
+      <CgMenuBoxed className={styles.ico}/>
+      </div>
       </div>
   )
 };

@@ -5,6 +5,7 @@ import styles from '../WorkoutInput/WorkoutInput.module.scss'
 
 const WorkoutInput = () => {
 
+ 
     return (
     <AppContext.Consumer>
       {(context) => (
@@ -12,7 +13,7 @@ const WorkoutInput = () => {
           <input
             type="text"
             placeholder="excercise"
-            value={context.excerciseName}
+            value={context.test}
             onChange={context.handleChange}
           />
           <button onClick={context.addExcercise}>ADD</button>
