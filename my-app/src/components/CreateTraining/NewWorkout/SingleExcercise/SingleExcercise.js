@@ -5,7 +5,7 @@ import { SiAddthis } from "react-icons/si";
 import styles from "./SingleExcercise.module.scss";
 
 const SingleExcercise = ({oneLineChange, excercises, text, series, id, addSeries, removeSeries, oneLineInputs}) => {
-  return (
+     return (
     <div className={styles.wrapper}>
     <ExcerciseName id={id} text={text}/>
      {series.map(el => 
@@ -14,7 +14,6 @@ const SingleExcercise = ({oneLineChange, excercises, text, series, id, addSeries
      id={id} 
      weight={el.weight} 
      reps={el.reps} 
-     reps={el.reps}  
      seriesID={el.id} 
      excercises={excercises}
      oneLineInputs={oneLineInputs}

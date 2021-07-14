@@ -17,7 +17,6 @@ function App() {
     reps:''
   }])
   
-
   const addExcercise = (e) => {
     e.preventDefault();
     if (excerciseName !== "") {
@@ -34,13 +33,12 @@ function App() {
           },
         ],
       };
-      setExcercises((prev) => [...prev, newExcercise] );
+      setExcercises((prev) => [...prev, newExcercise]);
       setExcerciseName('')
     } else {
       alert("podaj nazwę ćwiczenia!");
     }
   };
-
   
   const addSeries = (id) => {
     const excerciseToUpdate = excercises.find((el) => el.id === id);
@@ -93,7 +91,6 @@ const handleChange = (e) => {
 
   const saveDay = (e) => {
     e.preventDefault();
-    console.log("dupa")
     setDayWorkout([
       ...dayWorkout,
       {

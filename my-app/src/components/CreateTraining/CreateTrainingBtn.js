@@ -4,8 +4,6 @@ import styles from '../CreateTraining/CreateTraining.module.scss'
 import { Link } from "react-router-dom";
 import {testURL} from "../../AppRoutes";
 
-
-
 const CreateTraining = () => {
 
   return (

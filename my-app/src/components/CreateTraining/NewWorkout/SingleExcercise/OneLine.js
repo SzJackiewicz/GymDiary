@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./OneLine.module.scss";
 import { CgTrash } from "react-icons/cg";
 
-
 const OneLine = ({oneLineChange, oneLineInputs, id, seriesID, removeSeries, excercises}) => {
+  
   return (
   <div className={styles.wrapper}>
     <input

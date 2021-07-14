@@ -2,10 +2,7 @@ import React from "react";
 import AppContext from '../../../../context'
 import styles from '../WorkoutInput/WorkoutInput.module.scss'
 
-
 const WorkoutInput = () => {
-
- 
     return (
     <AppContext.Consumer>
       {(context) => (
