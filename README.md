@@ -1,3 +1,4 @@
+<pre>
 # GymDiary
 Track Your progress on gym!
 
@@ -57,3 +58,4 @@ INDEX JS
 ```
 nvm use 12.13
 ```
+</pre>
