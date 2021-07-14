@@ -8,12 +8,13 @@ import { v4 as uuidv4 } from "uuid";
 import _ from "lodash";
 
 function App() {
-  const [weightState, setWeight] = useState('')
-  const [repsState, setReps] = useState('')
   const [dayWorkout, setDayWorkout] = useState([]);
-  //tu ma być zapisywany cały dzień(?)
   const [excerciseName, setExcerciseName] = useState("");
   const [excercises, setExcercises] = useState([]);
+  const [oneLineInputs, setOneLineInputs] = useState({
+    weight:'',
+    reps:''
+  })
 
   const addExcercise = (e) => {
     e.preventDefault();
@@ -21,7 +22,6 @@ function App() {
       const newExcercise = {
         id: uuidv4(),
         text: excerciseName,
-
         series: [
           {
             id: uuidv4(),
@@ -34,14 +34,10 @@ function App() {
       };
       setExcercises((prev) => [...prev, newExcercise] );
       setExcerciseName('')
-
     } else {
       alert("podaj nazwę ćwiczenia!");
     }
   };
- 
-  // const dupa = _.findIndex(excercises, (el, series) => el.series === el.series.length > 0)
-  // console.log(dupa);
 
   const addSeries = (id) => {
     const excerciseToUpdate = excercises.find((el) => el.id === id);
@@ -68,8 +64,7 @@ function App() {
     const excerciseToChange = excercises.find((el) => el.id === id);
     const seriesArray = excerciseToChange.series;
     const seriesToRemoveIndex = _.findIndex(seriesArray,(el) => el.id === seriesID)
-   
-
+  
     setExcercises(()=>{
       seriesArray.splice(seriesToRemoveIndex,1)
       const notEmptyExcercises = excercises.filter((el) => el.series === el.series.length > 0)
@@ -82,17 +77,16 @@ function App() {
     )
   }
 
-const repsChange = (e) =>{
-  setReps(e.target.value)
+const oneLineChange = (e) =>{
+  setOneLineInputs({
+    ...oneLineInputs,
+    [e.target.name]:e.target.value
+  })
 }
 
-  const weightChange = (e) =>{
-    setWeight(e.target.value)
-  }
-
-  const handleChange = (e) => {
-    setExcerciseName(e.target.value);
-  };
+const handleChange = (e) => {
+  setExcerciseName(e.target.value);
+};
 
   const saveDay = (e) => {
     e.preventDefault();
@@ -139,11 +133,8 @@ const repsChange = (e) =>{
     saveDay,
     addSeries,
     removeSeries,
-    repsChange,
-    weightChange,
-    repsState,
-    weightState
-
+    oneLineChange,
+    oneLineInputs,
   };
 
   return (
@@ -153,7 +144,7 @@ const repsChange = (e) =>{
           <Route exact path={homeURL}>
             <Dashboard />
           </Route>
-          <DayTemplate saveDay={saveDay} excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} />
+          <DayTemplate oneLineInputs={oneLineInputs} saveDay={saveDay} excercises={excercises} addExcercise={addExcercise} removeSeries={removeSeries} />
         </Switch>
       </AppContext.Provider>
     </BrowserRouter>

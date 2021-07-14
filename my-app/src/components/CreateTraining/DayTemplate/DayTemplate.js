@@ -17,7 +17,20 @@ const DayTemplate = ({saveDay}) => {
         <SaveBtn saveDay={saveDay}/>
         </div>
         <WorkoutInput />
-        {context.excercises.map(ex => <SingleExcercise removeSeries={context.removeSeries} addSeries={context.addSeries} series={ex.series} key={ex.id} id={ex.id} text={ex.text} reps={ex.reps} repsChange={context.repsChange} weightChange={context.weightChange} excercises={context.excercises} />)}
+        {context.excercises.map(ex => 
+        <SingleExcercise 
+        removeSeries={context.removeSeries} 
+        addSeries={context.addSeries} 
+        series={ex.series} 
+        key={ex.id} id={ex.id} 
+        text={ex.text} 
+        reps={ex.reps} 
+        repsChange={context.repsChange} 
+        weightChange={context.weightChange} 
+        excercises={context.excercises} 
+        oneLineInputs={context.oneLineInputs}
+        oneLineChange={context.oneLineChange}
+        />)}
       </div>
       )}
     </AppContext.Consumer>
